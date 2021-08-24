@@ -19,7 +19,7 @@ func FlikrAlphabet() Alphabet {
 	return newAlphabet(flikrSymbols)
 }
 
-func RipplAlphabet() Alphabet {
+func RippleAlphabet() Alphabet {
 	return newAlphabet(rippleSymbols)
 }
 
