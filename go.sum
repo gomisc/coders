@@ -1,0 +1,4 @@
+git.corout.in/golibs/errors v1.0.5 h1:ZsdGPj2CmDGRrnuzs/RSLn2WCjzWWoHJiZ8zeEerXA0=
+git.corout.in/golibs/errors v1.0.5/go.mod h1:8BNBFkzaAjNmfBARMaf9WoSpemm4s9CzZhPV4fb7CsY=
+git.corout.in/golibs/fields v0.0.0-20210806231757-1734703190fd h1:Th4c9Jf40LQOv7/2pUnLgBu70OBmd8nzZp2Up9HzO5g=
+git.corout.in/golibs/fields v0.0.0-20210806231757-1734703190fd/go.mod h1:Tw1H3CHtkNk3rgfUQUi96L8CrJmyibnazB9Q2csXRno=
