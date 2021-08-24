@@ -22,9 +22,9 @@ func UUID(from ...string) []byte {
 	return UUIDv4()
 }
 
-// UUIDStr возвращает UUIDv5 если переданы аргументы, либо UUIDv4
+// StrUUID возвращает UUIDv5 если переданы аргументы, либо UUIDv4
 // стройкой
-func UUIDStr(from ...string) string {
+func StrUUID(from ...string) string {
 	return idBytesToStr(UUID(from...))
 }
 
