@@ -25,17 +25,17 @@ func RippleAlphabet() Alphabet {
 
 func newAlphabet(symb string) Alphabet {
 	abt := &alphabet{}
-	
+
 	copy(abt.encode[:], symb)
-	
+
 	for i := 0; i < len(abt.decode); i++ {
 		abt.decode[i] = -1
 	}
-	
-	for i := 0; i < len(abt.decode); i++ {
+
+	for i := 0; i < len(abt.encode); i++ {
 		abt.decode[abt.encode[i]] = int8(i)
 	}
-	
+
 	return abt
 }
 

@@ -1,6 +1,8 @@
 package base58
 
 import (
+	"fmt"
+
 	"git.corout.in/golibs/errors"
 )
 
@@ -10,7 +12,7 @@ const (
 	ErrOutputNumber    = errors.Const("output number too big")
 )
 
-var defaultEncoder = New(BTCAlphabet())
+var defaultEncoder = New(BTCAlphabet()) // nolint: gochecknoglobals
 
 type encoder struct {
 	alphabet Alphabet
@@ -32,20 +34,24 @@ func (e *encoder) Encode(in []byte) string {
 		zero               = encode[0]
 	)
 
+	// расчет количества лидирующих нулей данных для кодирования
 	for zcount < binsz && in[zcount] == 0 {
 		zcount++
 	}
 
+	// расчет размера слайса для хранения преобразованных данных
 	size := (binsz-zcount)*138/100 + 1
 	buf := make([]byte, size*2+zcount)
 	tmp := buf[size+zcount:]
 	high = size - 1
 
+	// преобразование данных
 	for i = zcount; i < binsz; i++ {
 		j = size - 1
 
+		// кодировка последовательности от начала до конца
 		for carry = uint32(in[i]); j > high || carry != 0; j-- {
-			carry = carry + 256*uint32(tmp[j])
+			carry += 256 * uint32(tmp[j])
 			tmp[j] = byte(carry % 58)
 			carry /= 58
 		}
@@ -56,7 +62,9 @@ func (e *encoder) Encode(in []byte) string {
 	for j = 0; j < size && tmp[j] == 0; j++ {
 	}
 
+	// кодирование лидирующих нолей
 	b58 := buf[:size-j+zcount]
+
 	if zcount != 0 {
 		for i = 0; i < zcount; i++ {
 			b58[i] = zero
@@ -72,7 +80,7 @@ func (e *encoder) Encode(in []byte) string {
 }
 
 func (e *encoder) Decode(in string) ([]byte, error) {
-	if len(in) == 0 {
+	if in == "" {
 		return nil, ErrZeroInputLength
 	}
 
@@ -99,8 +107,9 @@ func (e *encoder) Decode(in string) ([]byte, error) {
 		bytesleft = 4
 	}
 
-	var outi = make([]uint32, outisz)
+	outi := make([]uint32, outisz)
 
+	// расчет количества лидирующих нулей данных в кодированных данных
 	for i := 0; i < b58sz && b58u[i] == zero; i++ {
 		zcount++
 	}
@@ -111,7 +120,7 @@ func (e *encoder) Decode(in string) ([]byte, error) {
 		}
 
 		if decode[r] == -1 {
-			return nil, errors.Ctx().Newf("invalid base58 digit (%q)", r)
+			return nil, fmt.Errorf("invalid base58 digit (%q)", r)
 		}
 
 		c = uint64(decode[r])
