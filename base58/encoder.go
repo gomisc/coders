@@ -3,7 +3,7 @@ package base58
 import (
 	"fmt"
 
-	"git.corout.in/golibs/errors"
+	"git.eth4.dev/golibs/errors"
 )
 
 const (
