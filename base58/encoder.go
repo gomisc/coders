@@ -3,7 +3,7 @@ package base58
 import (
 	"fmt"
 
-	"git.eth4.dev/golibs/errors"
+	"gopkg.in/gomisc/errors.v1"
 )
 
 const (

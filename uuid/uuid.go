@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"strings"
 
-	"git.eth4.dev/golibs/errors"
+	"gopkg.in/gomisc/errors.v1"
 )
 
 const (
@@ -66,7 +66,8 @@ func idBytesToStr(id []byte) string {
 
 	var buf bytes.Buffer
 
-	err := writeStrings(&buf,
+	err := writeStrings(
+		&buf,
 		hex.EncodeToString(id[0:4]),
 		delim,
 		hex.EncodeToString(id[4:6]),
